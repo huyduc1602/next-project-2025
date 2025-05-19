@@ -1,5 +1,5 @@
 // Dynamic dashboard page by ID
-import { useParams } from 'next/navigation';
+import { useParams } from "next/navigation";
 
 export default function DashboardDetailPage() {
   // Get the dynamic route parameter

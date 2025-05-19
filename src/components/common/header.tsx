@@ -1,12 +1,13 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sun, Moon, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { useTheme } from "@/hooks/use-theme";
 
 const Header: React.FC = () => {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
@@ -21,18 +22,27 @@ const Header: React.FC = () => {
           </Link>
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
-            <a href="/features" className="text-sm font-medium transition-colors hover:text-primary">
+            <a
+              href="/features"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
               Features
             </a>
-            <a href="/pricing" className="text-sm font-medium transition-colors hover:text-primary">
+            <a
+              href="/pricing"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
               Pricing
             </a>
-            <a href="/about" className="text-sm font-medium transition-colors hover:text-primary">
+            <a
+              href="/about"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
               About
             </a>
           </nav>
         </div>
-        
+
         <div className="flex items-center gap-4">
           <button
             onClick={toggleTheme}
@@ -47,7 +57,7 @@ const Header: React.FC = () => {
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.15 }}
               >
-                {theme === 'dark' ? (
+                {theme === "dark" ? (
                   <Moon className="h-4 w-4" />
                 ) : (
                   <Sun className="h-4 w-4" />
@@ -55,7 +65,7 @@ const Header: React.FC = () => {
               </motion.div>
             </AnimatePresence>
           </button>
-          
+
           <button
             className="flex h-9 w-9 items-center justify-center rounded-md border border-input bg-background md:hidden"
             onClick={toggleMenu}
@@ -63,7 +73,7 @@ const Header: React.FC = () => {
           >
             {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
-          
+
           {/* Desktop buttons */}
           <div className="hidden md:flex items-center gap-4">
             <a
@@ -81,49 +91,49 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden border-t border-border"
           >
             <div className="container flex flex-col space-y-3 p-4">
-              <a 
-                href="/features" 
+              <a
+                href="/features"
                 className="flex h-10 items-center rounded-md px-4 text-sm font-medium hover:bg-accent"
                 onClick={() => setIsOpen(false)}
               >
                 Features
               </a>
-              <a 
-                href="/pricing" 
+              <a
+                href="/pricing"
                 className="flex h-10 items-center rounded-md px-4 text-sm font-medium hover:bg-accent"
                 onClick={() => setIsOpen(false)}
               >
                 Pricing
               </a>
-              <a 
-                href="/about" 
+              <a
+                href="/about"
                 className="flex h-10 items-center rounded-md px-4 text-sm font-medium hover:bg-accent"
                 onClick={() => setIsOpen(false)}
               >
                 About
               </a>
               <div className="my-2 h-px w-full bg-border" />
-              <a 
-                href="/login" 
+              <a
+                href="/login"
                 className="flex h-10 items-center rounded-md px-4 text-sm font-medium hover:bg-accent"
                 onClick={() => setIsOpen(false)}
               >
                 Login
               </a>
-              <a 
-                href="/signup" 
+              <a
+                href="/signup"
                 className="flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 onClick={() => setIsOpen(false)}
               >

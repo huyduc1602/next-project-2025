@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+  
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
@@ -13,33 +13,33 @@ const nextConfig = {
       },
     ],
   },
+  // External packages used in server components
+  // Note: date-fns removed to resolve conflict with auto-transpilation
+  serverExternalPackages: [],
   experimental: {
     optimizeCss: true,
     optimisticClientCache: true,
     serverActions: {
       bodySizeLimit: "2mb",
     },
+    // Optimize memory usage
+    memoryBasedWorkersCount: true,
     // ppr: true, // Partial Prerendering
     taint: true, // Taint API to prevent sensitive data exposure
-    turbopack: {
-      rules: {
-        // Custom rules for Turbopack
-      },
-    },
   },
-  // Cấu hình môi trường
+  // Configuration environment
   env: {
     API_URL: process.env.API_URL,
   },
-  // Tối ưu hóa compiler
+  // Compiler optimization
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-  // Giúp giảm kích thước bundle
+  // Helps reduce bundle size
   webpack: (config, { dev, isServer }) => {
-    // Chỉ áp dụng ở môi trường production
+    // Only apply in production environment
     if (!dev && !isServer) {
-      // Split chunks tối ưu hơn
+      // Optimized chunk splitting
       config.optimization.splitChunks = {
         chunks: "all",
         minSize: 20000,
@@ -65,7 +65,7 @@ const nextConfig = {
 
     return config;
   },
-  // Cấu hình header bảo mật
+  // Security headers configuration
   headers: async () => {
     return [
       {
@@ -96,11 +96,11 @@ const nextConfig = {
       },
     ];
   },
-  // Đảm bảo file nén gzip được sử dụng
+  // Enable gzip compression
   compress: true,
 };
 
-// Bật Bundle Analyzer trong development khi cần
+// Enable Bundle Analyzer in development when needed
 if (process.env.ANALYZE === "true") {
   const withBundleAnalyzer = require("@next/bundle-analyzer")({
     enabled: true,
