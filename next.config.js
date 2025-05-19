@@ -3,13 +3,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    formats: ['image/avif', 'image/webp'],
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'example.com',
-        port: '',
-        pathname: '/images/**',
+        protocol: "https",
+        hostname: "example.com",
+        port: "",
+        pathname: "/images/**",
       },
     ],
   },
@@ -17,18 +17,15 @@ const nextConfig = {
     optimizeCss: true,
     optimisticClientCache: true,
     serverActions: {
-      bodySizeLimit: '2mb',
+      bodySizeLimit: "2mb",
     },
-    webVitals: { 
-      attribution: true 
-    },
-    ppr: true, // Partial Prerendering
+    // ppr: true, // Partial Prerendering
     taint: true, // Taint API to prevent sensitive data exposure
-    turbo: {
+    turbopack: {
       rules: {
         // Custom rules for Turbopack
-      }
-    }
+      },
+    },
   },
   // Cấu hình môi trường
   env: {
@@ -36,7 +33,7 @@ const nextConfig = {
   },
   // Tối ưu hóa compiler
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === "production",
   },
   // Giúp giảm kích thước bundle
   webpack: (config, { dev, isServer }) => {
@@ -44,13 +41,13 @@ const nextConfig = {
     if (!dev && !isServer) {
       // Split chunks tối ưu hơn
       config.optimization.splitChunks = {
-        chunks: 'all',
+        chunks: "all",
         minSize: 20000,
         maxSize: 244000,
         minChunks: 1,
         maxAsyncRequests: 30,
         maxInitialRequests: 30,
-        automaticNameDelimiter: '~',
+        automaticNameDelimiter: "~",
         cacheGroups: {
           defaultVendors: {
             test: /[\\/]node_modules[\\/]/,
@@ -72,28 +69,29 @@ const nextConfig = {
   headers: async () => {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: "X-Content-Type-Options",
+            value: "nosniff",
           },
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: "X-Frame-Options",
+            value: "DENY",
           },
           {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
           },
           {
-            key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;"
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;",
           },
           {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
         ],
       },
     ];
@@ -103,8 +101,8 @@ const nextConfig = {
 };
 
 // Bật Bundle Analyzer trong development khi cần
-if (process.env.ANALYZE === 'true') {
-  const withBundleAnalyzer = require('@next/bundle-analyzer')({
+if (process.env.ANALYZE === "true") {
+  const withBundleAnalyzer = require("@next/bundle-analyzer")({
     enabled: true,
   });
   module.exports = withBundleAnalyzer(nextConfig);

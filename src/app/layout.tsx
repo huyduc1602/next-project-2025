@@ -1,21 +1,16 @@
-import { ReactNode } from 'react';
-import { ThemeProvider } from '@/context/theme-provider';
-import { Inter } from 'next/font/google';
-import '@/styles/globals.css';
-import Header from '@/components/common/header';
-import Footer from '@/components/common/footer';
-
-// Import React Query Provider
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-// Create a client
-const queryClient = new QueryClient();
+import { ReactNode } from "react";
+import { ThemeProvider } from "@/context/theme-provider";
+import { Inter } from "next/font/google";
+import "@/styles/globals.css";
+import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
+import ReactQueryProvider from "@/components/providers/react-query-provider";
 
 // Use the Inter font
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 interface RootLayoutProps {
@@ -23,12 +18,12 @@ interface RootLayoutProps {
 }
 
 export const metadata = {
-  title: 'Modern Next.js App with React 19',
-  description: 'A modern application built with Next.js and React 19',
-  viewport: 'width=device-width, initial-scale=1',
+  title: "Modern Next.js App with React 19",
+  description: "A modern application built with Next.js and React 19",
+  viewport: "width=device-width, initial-scale=1",
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
 };
 
@@ -39,11 +34,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={`${inter.variable} font-sans`}>
         <ThemeProvider defaultTheme="system">
           <div className="relative flex min-h-screen flex-col">
-            <QueryClientProvider client={queryClient}>
+            <ReactQueryProvider>
               <Header />
               <main className="flex-1">{children}</main>
               <Footer />
-            </QueryClientProvider>
+            </ReactQueryProvider>
           </div>
         </ThemeProvider>
       </body>

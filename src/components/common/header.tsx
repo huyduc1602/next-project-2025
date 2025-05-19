@@ -1,10 +1,24 @@
-return (
+'use client';
+
+import React, { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Sun, Moon, Menu, X } from "lucide-react";
+import Link from "next/link";
+
+const Header: React.FC = () => {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+
+  return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur">
       <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-6">
-          <a href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <span className="font-bold text-xl">AppName</span>
-          </a>
+          </Link>
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-6">
             <a href="/features" className="text-sm font-medium transition-colors hover:text-primary">
@@ -121,4 +135,6 @@ return (
       </AnimatePresence>
     </header>
   );
-}
+};
+
+export default Header;

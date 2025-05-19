@@ -5,9 +5,8 @@ import { Inter } from 'next/font/google';
 import '@/styles/globals.css';
 import Header from '@/components/common/header';
 import Footer from '@/components/common/footer';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ReactQueryProvider from '@/components/providers/react-query-provider';
 
-const queryClient = new QueryClient();
 const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 
 interface RootLayoutProps {
@@ -23,11 +22,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <ThemeProvider defaultTheme="system">
           <AuthProvider>
             <div className="relative flex min-h-screen flex-col">
-              <QueryClientProvider client={queryClient}>
+              <ReactQueryProvider>
                 <Header />
                 <main className="flex-1">{children}</main>
                 <Footer />
-              </QueryClientProvider>
+              </ReactQueryProvider>
             </div>
           </AuthProvider>
         </ThemeProvider>
