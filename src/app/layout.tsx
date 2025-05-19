@@ -20,7 +20,11 @@ interface RootLayoutProps {
 export const metadata = {
   title: "Modern Next.js App with React 19",
   description: "A modern application built with Next.js and React 19",
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "white" },
     { media: "(prefers-color-scheme: dark)", color: "black" },
