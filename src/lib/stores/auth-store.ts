@@ -1,4 +1,4 @@
-import { create } from 'jotai/vanilla';
+import { createStore } from 'jotai/vanilla';
 import { atomWithStorage } from 'jotai/utils';
 
 // User type definition
@@ -30,7 +30,7 @@ const initialState: AuthState = {
 export const authAtom = atomWithStorage<AuthState>('auth', initialState);
 
 // Create actions
-export const authLogin = (store: ReturnType<typeof create>) => async (email: string, password: string) => {
+export const authLogin = (store: ReturnType<typeof createStore>) => async (email: string, password: string) => {
   const authStore = store.get(authAtom);
   
   // Set loading state
@@ -85,13 +85,13 @@ export const authLogin = (store: ReturnType<typeof create>) => async (email: str
   }
 };
 
-export const authLogout = (store: ReturnType<typeof create>) => async () => {
+export const authLogout = (store: ReturnType<typeof createStore>) => async () => {
   // In a real app, you might want to make an API call to invalidate the token
   store.set(authAtom, initialState);
   return { success: true };
 };
 
-export const authRefreshToken = (store: ReturnType<typeof create>) => async () => {
+export const authRefreshToken = (store: ReturnType<typeof createStore>) => async () => {
   const { accessToken, user } = store.get(authAtom);
   
   if (!accessToken || !user) {
@@ -133,7 +133,7 @@ export const authRefreshToken = (store: ReturnType<typeof create>) => async () =
 
 // Create store with atoms and actions
 export const createAuthStore = () => {
-  const store = create();
+  const store = createStore();
   
   return {
     authAtom,
